@@ -21,45 +21,45 @@ public class Pop {
 	/**
 	 * action
 	 */
-	public String ac;
-	public String app_name = "H5Player";
-	public String ch = "safari";
-	public String cl;
+	
+	public String acode;
+	public String ap;
+	public String ar;
 	public String cid;
-	public String ctime;
-	public String ilu;
-	public String ipt;
-	public String key;
+	public String pid;
+	public String vid;
+	public String uid;
 	public String lc;
-	public String lid;
-	public String nt;
+	public String cur_url;
+	public String auid;
+	public String targeturl;
 	public String p1;
 	public String p2;
+	public String app;
+	public String app_name;
+	public String apprunid;
+	public String nt;
+	public String android_id;
+	public String idfa;
+	public String mac;
+	public String wmac;
+	public String im;
+	public String imsi;
+	public String mid;
+	public String pcode;
 	public String p3;
-	public String pid;
-	public String pv = "3.7.0";
+	public String ch;
+	public String plat;
+	public String pn;
+	public String tick;
+	public String seriaino;
+	public String stime;
 	public String py;
 	public String r;
-	public String ref;
-	public String sid;
-	public String st;
-	public String ty;
-	public String uid;
-	public String url;
-	public String uuid;
-	public String ver = "3.7.2";
-	public String vid;
-	public String vlen;
-	public String weid;
-	public String pt;
-	public String ut;
-	public String ry;
-	public String vt;
-	public String cdev;
-	public String caid;
-	public String prl;
-	public String pay;
-	public String joint;
+	public String ctime;
+	private String url;
+	
+
 	private Map<String,Object> infoMap;
 
 	public Pop() {
@@ -68,12 +68,11 @@ public class Pop {
 
 	public Pop(String url) {
 		this.url = url;
-		this.ref = url;
 		this.vid = getVid(url);
 		this.infoMap = getVInfo(url);
 		this.pid = infoMap.get("pid").toString() ;
 		this.cid = infoMap.get("cid").toString();
-		this.vlen = infoMap.get("duration").toString();
+//		this.vlen = infoMap.get("duration").toString();
 	}
 	
 	private Map<String,Object> getVInfo(String url){
@@ -95,32 +94,7 @@ public class Pop {
 	 */
 	private boolean changingStatus;
 
-	private String getUuid() {
-		if (this.uuid == null) {
-			// 1 + time+4 + 十位十进制数的后6位;
-			Random random = new Random();
-			String uuid = "1";
-			String t = new Date().getTime() + "";
-			String r = "";
-			for (int i = 0; i < 6; i++) {
-				r += random.nextInt(10);
-			}
-			
-			uuid += new String(t).substring(4);
-			uuid += r;
-			this.uuid = uuid;
-		}
-		return uuid;
-	}
-
-	private String getCl() {
-		// MD5(lc + showmethemoney)
-		if (this.cl == null) {
-			this.cl = MD5.encry(getLc() + "showmethemoney");
-		}
-		return this.cl;
-	}
-
+	
 	private String getLc() {
 		// 32位16进制随机数
 		if (lc == null) {
