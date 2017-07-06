@@ -20,7 +20,7 @@ public class Test extends Thread{
 		//System.out.println(p.py);
 		
 		
-		for(int i = 0; i < 20;i ++){
+		for(int i = 0; i < 1;i ++){
 			Test t = new Test();
 			t.start();
 		}
@@ -28,54 +28,28 @@ public class Test extends Thread{
 	}
 	
 	public void startRun(){
-		String surl = "http://apple-www.le.com/pl/";
-		String url = "";
-		Parameters p = new Parameters("http://m.le.com/vplay_29982549.html");
-		p.init();
-		url = surl + "?" + p.toHttpParam();
-		HttpHelper.sendGet(url, null);
-		
-		p.gslb();
-		url = surl + "?" + p.toHttpParam();
-		HttpHelper.sendGet(url, null);
-		p.cload();
-		url = surl + "?" + p.toHttpParam();
-		HttpHelper.sendGet(url, null);
-		p.gslb2();
-		url = surl + "?" + p.toHttpParam();
-		HttpHelper.sendGet(url, null);
-		p.cload();
-		url = surl + "?" + p.toHttpParam();
-		HttpHelper.sendGet(url, null);
-		p.block();
-		url = surl + "?" + p.toHttpParam();
-		HttpHelper.sendGet(url, null);
-		p.play();
-		url = surl + "?" + p.toHttpParam();
-		HttpHelper.sendGet(url, null);
-		
+		GeneralParam gp = new GeneralParam("http://m.le.com/vplay_29982549.html");
+		Ppl p = new Ppl(gp);
+		HttpHelper.sendGet(p.init().getUrl(), null);
+		HttpHelper.sendGet(p.gslb().getUrl(), null);
+		HttpHelper.sendGet(p.cload().getUrl(), null);
+//		HttpHelper.sendGet(p.gslb2().getUrl(), null);
+//		HttpHelper.sendGet(p.cload().getUrl(), null);
+		HttpHelper.sendGet(p.block().getUrl(), null);
+		HttpHelper.sendGet(p.play().getUrl(), null);		
 		for(int i = 0;i < 2;i++){
 			try {
 				Thread.sleep(1000 * 120);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			p.time();
-			url = surl + "?" + p.toHttpParam();
-			HttpHelper.sendGet(url, null);	
+			HttpHelper.sendGet(p.time().getUrl(), null);	
 		}
-		
-		
-		p.end();
-		url = surl + "?" + p.toHttpParam();
-		HttpHelper.sendGet(url, null);
+		HttpHelper.sendGet(p.end().getUrl(), null);
 	}
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		
 		while(true){
 			startRun();	
 		}

@@ -40,16 +40,32 @@ public class ParameterUtil {
 	 * */
 	public static Map getFiledsInfo(Object o) {
 		Field[] fields = o.getClass().getDeclaredFields();
-		String[] fieldNames = new String[fields.length];
+		Field[] superFields = o.getClass().getSuperclass().getDeclaredFields();
+		String[] fieldNames = new String[fields.length + superFields.length];
 		Map map = new HashMap();
 		Map infoMap = null;
+		Map infoMap2 = null;
 		for (int i = 0; i < fields.length; i++) {
 			infoMap = new HashMap();
 			infoMap.put("type", fields[i].getType().toString());
 			infoMap.put("name", fields[i].getName());
 			infoMap.put("value", getFieldValueByName(fields[i].getName(), o));
 			map.put(fields[i].getName(),infoMap);
+			if("gp".equals(infoMap.get("name"))){
+				infoMap2 = getFiledsInfo(getFieldValueByName(fields[i].getName(), o));
+				map.putAll(infoMap2);
+			}
 		}
+		
+		
+		
+//		for (int i = 0; i < superFields.length; i++) {
+//			infoMap = new HashMap();
+//			infoMap.put("type", superFields[i].getType().toString());
+//			infoMap.put("name", superFields[i].getName());
+//			infoMap.put("value", getFieldValueByName(superFields[i].getName(), o));
+//			map.put(superFields[i].getName(),infoMap);
+//		}
 		return map;
 	}
 
