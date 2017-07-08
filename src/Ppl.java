@@ -113,7 +113,7 @@ public class Ppl extends SuperP {
 	}
 
 	private String getCtime() {
-		if (this.changingStatus) {
+		if (this.ctime == null) {
 			this.ctime = new Date().getTime() + "";
 		}
 		return this.ctime;
@@ -121,7 +121,7 @@ public class Ppl extends SuperP {
 
 	private String getR() {
 		// 12 位10进制随机数
-		if (this.changingStatus) {
+		if (this.r == null) {
 			Random random = new Random();
 			String s = "";
 			for (int i = 10; i > 0; i--) {
@@ -174,7 +174,13 @@ public class Ppl extends SuperP {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		this.changingStatus = true;
+		//清空本次事件需要重新生成的数据
+		this.ctime = null;
+		this.r = null;
+		
+		
+		
+		
 		this.prl = null;
 		this.pay = null;
 		this.joint = null;
@@ -286,7 +292,6 @@ public class Ppl extends SuperP {
 		this.getKey();
 		this.getWEID();
 		this.getPy();
-		this.changingStatus = false;
 
 	}
 
